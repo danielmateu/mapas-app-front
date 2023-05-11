@@ -1,11 +1,10 @@
+import MapaPage from "./pages/MapaPage"
 
 function MapsApp() {
 
 
   return (
-    <>
-      <h1>MAPAS</h1>
-    </>
+    <MapaPage />
   )
 }
 
