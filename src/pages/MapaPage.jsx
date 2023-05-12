@@ -1,9 +1,27 @@
 // import mapboxgl from 'mapbox-gl'
+import { useEffect } from 'react';
 import { useMapbox } from '../hooks/useMapbox';
 
 const MapaPage = () => {
     // const [mapa, setMapa] = useState(null)
-    const { coords, mapaDiv, agregarMarcador } = useMapbox()
+    const { coords, setRef, nuevoMarcador$, movimientoMarcador$ } = useMapbox()
+
+    // Nuevo Marcador
+    useEffect(() => {
+        nuevoMarcador$.subscribe(marcador => {
+            // console.log('MapaPage');
+            // console.log(marcador)
+
+            // Todo: Nuevo marcador emitir
+        })
+    }, [nuevoMarcador$])
+
+    // Todo movimiento de marcador
+    useEffect(() => {
+        movimientoMarcador$.subscribe(marcador => {
+            console.log(marcador.id)
+        })
+    }, [movimientoMarcador$])
 
     return (
         <>
@@ -14,7 +32,7 @@ const MapaPage = () => {
             </div>
 
             <div
-                ref={mapaDiv}
+                ref={setRef}
                 className="mapContainer absolute bottom-0 left-0 right-0 top-0"
             />
         </>
