@@ -3,7 +3,7 @@ import { useMapbox } from '../hooks/useMapbox';
 
 const MapaPage = () => {
     // const [mapa, setMapa] = useState(null)
-    const { coords, mapaDiv } = useMapbox()
+    const { coords, mapaDiv, agregarMarcador } = useMapbox()
 
     return (
         <>
