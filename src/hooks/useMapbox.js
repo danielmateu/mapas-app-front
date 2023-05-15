@@ -26,7 +26,7 @@ export const useMapbox = () => {
     // Observables de Rxjs
     const movimientoMarcador = useRef(new Subject())
     const nuevoMarcador = useRef(new Subject())
-    
+
     // Mapa y coords
     const mapa = useRef()
     const [coords, setCoords] = useState(puntoInicial)
@@ -65,6 +65,12 @@ export const useMapbox = () => {
         })
     }, [])
 
+    // Funcion para actualizar la ubicacion del marcador
+    const actualizarPosicion = useCallback(({ id, lng, lat }) => {
+        marcadores.current[id].setLngLat([lng, lat])
+    }, [])
+
+
     useEffect(() => {
         let map = new mapboxgl.Map({
             container: mapaDiv.current,
@@ -100,6 +106,7 @@ export const useMapbox = () => {
         marcadores,
         nuevoMarcador$: nuevoMarcador.current,
         movimientoMarcador$: movimientoMarcador.current,
-        setRef
+        setRef,
+        actualizarPosicion
     }
 }
