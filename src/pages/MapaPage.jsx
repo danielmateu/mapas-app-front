@@ -15,16 +15,14 @@ const MapaPage = () => {
     // Escuchar los marcadores existentes
     useEffect(() => {
         socket.on('marcadores-activos', (marcadores) => {
-            console.log(marcadores);
+            // console.log(marcadores);
             for (const key of Object.keys(marcadores)) {
-                console.log(key);
+                // console.log(key);
                 agregarMarcador(marcadores[key], key)
             }
 
-            // agregarMarcador(marcadores)s
         })
     }, [socket])
-
 
     // Nuevo Marcador
     useEffect(() => {
@@ -33,6 +31,7 @@ const MapaPage = () => {
             // console.log(marcador);
             socket.emit('marcador-nuevo', marcador)
         })
+
     }, [nuevoMarcador$, socket])
 
     // Todo movimiento de marcador
@@ -47,7 +46,8 @@ const MapaPage = () => {
     // Escuchar nuevos marcadores
     useEffect(() => {
         socket.on('marcador-nuevo', (marcador) => {
-            console.log(marcador)
+            // console.log(marcador)
+            agregarMarcador(marcador, marcador.id)
         })
     }, [socket])
 
