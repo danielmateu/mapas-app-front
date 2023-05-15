@@ -26,9 +26,7 @@ export const useMapbox = () => {
     // Observables de Rxjs
     const movimientoMarcador = useRef(new Subject())
     const nuevoMarcador = useRef(new Subject())
-
-
-
+    
     // Mapa y coords
     const mapa = useRef()
     const [coords, setCoords] = useState(puntoInicial)

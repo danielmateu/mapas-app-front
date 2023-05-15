@@ -1,58 +1,41 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import mapboxgl from 'mapbox-gl'
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useMapbox } from '../hooks/useMapbox';
-import { useSocket } from '../hooks/useSocket';
+// import { useSocket } from '../hooks/useSocket';
 import { SocketContext } from '../context/SocketContext';
 
 const MapaPage = () => {
     // const [mapa, setMapa] = useState(null)
     const { coords, setRef, nuevoMarcador$, movimientoMarcador$ } = useMapbox()
 
-    const { socket, online } = useSocket(SocketContext)
-
-    // Escuchar los marcadores existentes
-    // useEffect(() => {
-    //     socket.on('marcadores-activos', (marcadores) => {
-    //         for (const key of Object.keys(marcadores)) {
-    //             // console.log(key)
-    //             console.log(marcadores[key])
-    //             console.log(marcadores[key].lng)
-    //             console.log(marcadores[key].lat)
-    //             console.log(marcadores[key].id)
-    //             // console.log(marcadores[key].nombre)
-    //             // console.log(marcadores[key].color)
-    //             // console.log(marcador
-
-    //         }
-    //     })
-    // }, [socket])
-
+    // const { socket } = useSocket(SocketContext)
+    const { socket } = useContext(SocketContext)
 
     // Nuevo Marcador
     useEffect(() => {
         nuevoMarcador$.subscribe(marcador => {
-            // console.log('MapaPage');
-            // console.log(marcador)
             // Todo: Nuevo marcador emitir
-            // socket.emit('marcador-nuevo', marcador)
-
-
-
+            // console.log(marcador);
+            socket.emit('marcador-nuevo', marcador)
         })
-    }, [nuevoMarcador$])
+    }, [nuevoMarcador$, socket])
 
     // Todo movimiento de marcador
     useEffect(() => {
         movimientoMarcador$.subscribe(marcador => {
-            console.log(marcador.id)
-
-            // socket.emit('marcador-actualizado', marcador)
+            // console.log(marcador.id)
+            socket.emit('marcador-actualizado', marcador)
         })
 
-
-
     }, [movimientoMarcador$])
+
+    // Escuchar nuevos marcadores
+    useEffect(() => {
+        socket.on('marcador-nuevo', (marcador) => {
+            console.log(marcador)
+        })
+    }, [socket])
 
     return (
         <>
