@@ -7,10 +7,24 @@ import { SocketContext } from '../context/SocketContext';
 
 const MapaPage = () => {
     // const [mapa, setMapa] = useState(null)
-    const { coords, setRef, nuevoMarcador$, movimientoMarcador$ } = useMapbox()
+    const { coords, setRef, nuevoMarcador$, movimientoMarcador$, agregarMarcador } = useMapbox()
 
     // const { socket } = useSocket(SocketContext)
     const { socket } = useContext(SocketContext)
+
+    // Escuchar los marcadores existentes
+    useEffect(() => {
+        socket.on('marcadores-activos', (marcadores) => {
+            console.log(marcadores);
+            for (const key of Object.keys(marcadores)) {
+                console.log(key);
+                agregarMarcador(marcadores[key], key)
+            }
+
+            // agregarMarcador(marcadores)s
+        })
+    }, [socket])
+
 
     // Nuevo Marcador
     useEffect(() => {
