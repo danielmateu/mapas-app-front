@@ -1,10 +1,13 @@
+import { SocketProvider } from "./context/SocketContext"
 import MapaPage from "./pages/MapaPage"
 
 function MapsApp() {
 
 
   return (
-    <MapaPage />
+    <SocketProvider>
+      <MapaPage />
+    </SocketProvider>
   )
 }
 
